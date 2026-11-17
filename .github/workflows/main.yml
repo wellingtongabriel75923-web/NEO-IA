@@ -1,0 +1,22 @@
+name: Gerar APK do NEO
+on:
+  push:
+    branches: [ principal ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilar APK com Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          buildozer_version: stable
+          command: buildozer android debug
+      - name: Salvar APK gerado
+        uses: actions/upload-artifact@v4
+        with:
+          name: NEO-APK
+          path: bin/*.apk
+          
